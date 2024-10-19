@@ -1,16 +1,14 @@
 name: ci
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_run:
+    workflows: [CodeQL Advanced]
+    types: [completed]
 
 jobs:
   docker:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       -
         name: Set up Docker Buildx
