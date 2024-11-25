@@ -18,12 +18,12 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserEntity> user = userRepository.findByUserName(username);
+        Optional<UserEntity> user = userRepository.findByUsername(username);
         if(user.isPresent())
         {
             var userObj = user.get();
             return User.builder()
-                    .username(userObj.getUserName())
+                    .username(userObj.getUsername())
                     .password(userObj.getPassword())
                     .roles(getRoles(userObj))
                     .build();
